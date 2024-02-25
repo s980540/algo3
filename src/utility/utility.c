@@ -24,3 +24,16 @@ void aligned_free(void *aligned_ptr)
     // printf("[%s](%x,%x)\n", __FUNCTION__, *((size_t *)aligned_ptr - 1), aligned_ptr);
     free((void *)(*((size_t *)aligned_ptr - 1)));
 }
+
+/*
+ *  strlen - Find the length of a string
+ *  @s: The string to be sized
+ */
+size_t strlen(const char *s)
+{
+    const char *sc;
+    for (sc = s; *sc != '\0'; ++sc)
+        /* Do nothing*/;
+
+    return sc - s;
+}
