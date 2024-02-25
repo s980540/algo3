@@ -51,5 +51,7 @@ Module.symvers
 Mkfile.old
 dkms.conf
 
-# msys
+# Project
 msys.lnk
+AStyle
+_astylerc
