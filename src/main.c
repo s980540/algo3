@@ -48,13 +48,20 @@ int thread_delete(void)
     return 0;
 }
 
-int main(int argc, char *argv[])
+int thread_test(int argc, char *argv[])
 {
     printf("thread\n");
     srand(time(NULL));
 
     thread_init(argc, argv);
     thread_delete();
+
+    return 0;
+}
+
+int main(int argc, char *argv[])
+{
+    // thread_test(argc, argv);
 
     return 0;
 }
