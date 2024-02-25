@@ -4,7 +4,7 @@
 
 LIBNAME = libthread.a
 
-DIR = src
+DIR = thread
 
 SUBDIR =
 

@@ -4,7 +4,7 @@
 
 LIBNAME = libcrc.a
 
-DIR = src
+DIR = crc
 
 SUBDIR =
 

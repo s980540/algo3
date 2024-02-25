@@ -4,7 +4,7 @@
 
 LIBNAME = libutility.a
 
-DIR = src
+DIR = utility
 
 SUBDIR =
 

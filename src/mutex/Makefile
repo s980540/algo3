@@ -4,7 +4,7 @@
 
 LIBNAME = libmutex.a
 
-DIR = src
+DIR = mutex
 
 SUBDIR =
 
