@@ -68,7 +68,8 @@ all:
 	mkdir -p $(LIBDIR)
 	for dir in $(SUBDIR); do \
 		cd $$dir; \
-		make -j $@; \
+		# make -j $@; \
+		make $@; \
 		cd $(CURDIR); \
 	done
 	$(CC) $(LDFLAGS) $(LDLIBS) -o $(BINDIR)/$(BINNAME)

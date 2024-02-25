@@ -11,7 +11,7 @@ CFLAGS = \
 	$(addprefix -I,$(COMMON_INCLUDE)) \
 	$(addprefix -I,$(EXTERN_INCLUDE)) \
 	$(foreach include, . $(INCLUDE), -I$(PROJDIR)/$(DIR)/$(include)) \
-	-g -O2
+	-g -O2 -Wall
 
 DEFINES +=-DNVME_MI_DEBUG_TRACE
 
