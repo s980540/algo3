@@ -1,0 +1,15 @@
+{
+	"folders": [
+		{
+			"path": "."
+		}
+	],
+    "settings": {
+        "files.associations": {
+            "global.h": "c",
+            "pthread.h": "c",
+            "thread.h": "c",
+            "main.h": "c"
+        }
+    }
+}
