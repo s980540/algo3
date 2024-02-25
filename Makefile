@@ -10,6 +10,7 @@ LIBDIR	= $(PROJDIR)/lib
 
 SUBDIR = \
 	src \
+	src/checksum \
 	src/crc \
 	src/mutex \
 	src/thread \
@@ -44,11 +45,12 @@ LDFLAGS = \
 # the linker, ‘ld’. LOADLIBES is a deprecated (but still supported) alternative to
 # LDLIBS. Non-library linker flags, such as -L, should go in the LDFLAGS variable.
 LIBS = \
+	main \
+	checksum \
 	crc \
 	mutex \
 	thread \
 	utility \
-	main \
 
 LDLIBS = $(foreach lib,$(LIBS),-l$(lib)) -lpthread	# <-- Do not change this order.
 

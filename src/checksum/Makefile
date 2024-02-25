@@ -2,18 +2,13 @@
 # Makefile created by Steve Chang
 # Date modified: 2024.02.25
 
-LIBNAME = libmain.a
+LIBNAME = libchecksum.a
 
-DIR = src
+DIR = checksum
 
 SUBDIR =
 
-INCLUDE = \
-	checksum \
-	crc \
-	mutex \
-	thread \
-	utility \
+INCLUDE =
 
 SRCS = $(wildcard *.c)
 

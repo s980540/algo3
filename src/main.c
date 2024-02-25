@@ -1,5 +1,7 @@
 #include "main.h"
 #include "thread.h"
+#include "checksum.h"
+#include "utility.h"
 
 foo_ts foo = {.mutex = (PTHREAD_MUTEX_INITIALIZER), .val = 0};
 
@@ -59,9 +61,24 @@ int thread_test(int argc, char *argv[])
     return 0;
 }
 
+char string[] = {"The red fox jumps over a lazy dog."};
+
 int main(int argc, char *argv[])
 {
     // thread_test(argc, argv);
+
+    u8 sum, chksum;
+
+    sum = 0;
+    sum = checksum8_append(sum, string, strlen(string));
+    printf("sum: 0x%02x, %d\n", sum, strlen(string));
+
+    chksum = 0;
+    chksum = checksum8(chksum, string, strlen(string));
+    printf("checksum: 0x%02x, %d\n", chksum, strlen(string));
+
+    chksum += sum;
+    printf("Checksum verify %s.\n", chksum ? "failed" : "passed");
 
     return 0;
 }

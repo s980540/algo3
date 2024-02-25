@@ -9,7 +9,8 @@
             "global.h": "c",
             "pthread.h": "c",
             "thread.h": "c",
-            "main.h": "c"
+            "main.h": "c",
+            "checksum.h": "c"
         }
     }
 }
