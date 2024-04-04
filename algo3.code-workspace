@@ -10,7 +10,8 @@
             "pthread.h": "c",
             "thread.h": "c",
             "main.h": "c",
-            "checksum.h": "c"
+            "checksum.h": "c",
+            "utility.h": "c"
         }
     }
 }

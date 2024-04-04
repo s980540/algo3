@@ -15,6 +15,7 @@ SUBDIR = \
 	src/mutex \
 	src/thread \
 	src/utility \
+	src/aardvark \
 
 COMMON_INCLUDE = \
 	$(CURDIR)/include \
@@ -51,6 +52,7 @@ LIBS = \
 	mutex \
 	thread \
 	utility \
+	aardvark \
 
 LDLIBS = $(foreach lib,$(LIBS),-l$(lib)) -lpthread	# <-- Do not change this order.
 
