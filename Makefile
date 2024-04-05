@@ -3,10 +3,10 @@
 # Date modified: 2024.02.25
 
 BINNAME = algo.exe
-BINDIR 	= $(PROJDIR)/bin
 PROJDIR = $(CURDIR)
-
+SRCDIR 	= $(PROJDIR)/src
 LIBDIR	= $(PROJDIR)/lib
+BINDIR 	= $(PROJDIR)/bin
 
 SUBDIR = \
 	src \
@@ -59,9 +59,10 @@ LIBS = \
 LDLIBS = $(foreach lib,$(LIBS),-l$(lib)) -lpthread	# <-- Do not change this order.
 
 export BINNAME
-export BINDIR
 export PROJDIR
+export SRCDIR
 export LIBDIR
+export BINDIR
 export COMMON_INCLUDE
 export EXTERN_LIBDIR
 export EXTERN_INCLUDE
