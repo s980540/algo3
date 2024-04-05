@@ -16,6 +16,7 @@ SUBDIR = \
 	src/thread \
 	src/utility \
 	src/aardvark \
+	src/bin \
 
 COMMON_INCLUDE = \
 	$(CURDIR)/include \
@@ -36,9 +37,9 @@ MAKE_RULES := $(PROJDIR)/make/make_rules.mk
 # ‘ld’, such as -L. Libraries (-lfoo) should be added to the LDLIBS variable
 # instead.
 LDFLAGS = \
-	-v \
 	$(addprefix -L,$(EXTERN_LIBDIR)) \
 	$(addprefix -L,$(LIBDIR)) \
+	# -v \
 	# -static \
 	# -static-libgcc \
 
@@ -51,6 +52,7 @@ LIBS = \
 	crc \
 	mutex \
 	thread \
+	bin \
 	utility \
 	aardvark \
 

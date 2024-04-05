@@ -2,6 +2,7 @@
 
 #include "thread.h"
 #include "nvme_mi.h"
+#include "bin.h"
 
 foo_ts foo = {.mutex = (PTHREAD_MUTEX_INITIALIZER), .val = 0};
 
@@ -61,12 +62,16 @@ int thread_test(int argc, char *argv[])
     return 0;
 }
 
-
-
 int main(int argc, char *argv[])
 {
+    int ret = 0;
     // thread_test(argc, argv);
-    nvme_mi_test_checksum();
+    // nvme_mi_test_checksum();
 
-    return 0;
+    ret = generate_random_binfile(argc, argv);
+    if (ret) {
+        printf("generate_random_binfile failed (%d)\n", ret);
+    }
+
+    return ret;
 }

@@ -1,5 +1,7 @@
 #include "utility.h"
 
+#include <limits.h>
+
 void *aligned_alloc(size_t size, u32 align)
 {
     size_t addr;
@@ -25,17 +27,34 @@ void aligned_free(void *aligned_ptr)
     free((void *)(*((size_t *)aligned_ptr - 1)));
 }
 
-/*
- *  strlen - Find the length of a string
- *  @s: The string to be sized
- */
-size_t strlen(const char *s)
+unsigned long get_num(const char *str)
 {
-    const char *sc;
-    for (sc = s; *sc != '\0'; ++sc)
-        /* Do nothing*/;
+    char *end, c;
+    unsigned long val;
 
-    return sc - s;
+    if (!str) {
+        return 0;
+    }
+    val = strtoul(str, &end, 0);
+    if (!val || val == ULONG_MAX) {
+        return 0;
+    }
+    while ((c = *end++) != 0) {
+        switch (c) {
+            case 'k':
+                val <<= 10;
+                break;
+            case 'M':
+                val <<= 20;
+                break;
+            case 'G':
+                val <<= 30;
+                break;
+            default:
+                return 0;
+        }
+    }
+    return val;
 }
 
 void print_buf(const void *buf, size_t size, char *title)
@@ -62,13 +81,13 @@ void print_buf(const void *buf, size_t size, char *title)
                     printf(".");
                 }
                 else {
-                    printf("%c", ((u8 *)buf)[j]);
+                    printf("%c", ((char *)buf)[j]);
                 }
             }
             printf("\n0x%08X: ", addr + i);
             p = 1;
         }
-        else if (i % 8 == 0) {
+        else if (i && (i % 8 == 0)) {
             printf(" ");
         }
 
@@ -94,14 +113,23 @@ void print_buf(const void *buf, size_t size, char *title)
                 printf(".");
             }
             else {
-                printf("%c", ((u8 *)buf)[j]);
+                printf("%c", ((char *)buf)[j]);
             }
-        }
-
-        for (j = i; j < i + 16 - (i & 0xF); j++) {
-            printf(".");
         }
     }
 
     printf("\n\n");
+}
+
+/*
+ *  strlen - Find the length of a string
+ *  @s: The string to be sized
+ */
+size_t strlen(const char *s)
+{
+    const char *sc;
+    for (sc = s; *sc != '\0'; ++sc)
+        /* Do nothing*/;
+
+    return sc - s;
 }

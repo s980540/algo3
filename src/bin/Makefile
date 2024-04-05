@@ -1,20 +1,14 @@
 # Project: algo3
 # Makefile created by Steve Chang
-# Date modified: 2024.02.25
+# Date modified: 2024.04.05
 
-LIBNAME = libmain.a
+LIBNAME = libbin.a
 
-DIR = src
+DIR = bin
 
 SUBDIR =
 
-INCLUDE = \
-	checksum \
-	crc \
-	mutex \
-	thread \
-	utility \
-	bin \
+INCLUDE = utility
 
 SRCS = $(wildcard *.c)
 

@@ -10,7 +10,7 @@ DEPS = $(addprefix $(OBJDIR)/,$(SRCS:.c=.c.d))
 CFLAGS = \
 	$(addprefix -I,$(COMMON_INCLUDE)) \
 	$(addprefix -I,$(EXTERN_INCLUDE)) \
-	$(foreach include, . $(INCLUDE), -I$(PROJDIR)/$(DIR)/$(include)) \
+	$(foreach include, . $(INCLUDE), -I$(PROJDIR)/src/$(include)) \
 	-g -O2 -Wall
 
 DEFINES +=-DNVME_MI_DEBUG_TRACE
@@ -30,7 +30,8 @@ DEFINES +=-DNVME_MI_DEBUG_TRACE
 
 #
 ARFLAGS = \
-	rcsv
+	rcs \
+	# rcsv
 
 ###
 .PHONY: all
