@@ -21,7 +21,7 @@ int generate_random_binfile(int argc, char *argv[])
 	bin_size = get_num(argv[2]);
 
 	if (bin_size == 0) {
-		printf("bad arguments: algo <file name> <bin size(k/M/G)>\n");
+		printf("bad arguments: algo3 <file name> <bin size(k/M/G)>\n");
 		return -1;
 	}
 

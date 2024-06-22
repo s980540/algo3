@@ -13,7 +13,8 @@
             "defines": [
                 "_DEBUG",
                 "UNICODE",
-                "_UNICODE"
+                "_UNICODE",
+                "WIN32"
             ],
             "cStandard": "c11",
             "cppStandard": "gnu++14",
@@ -49,7 +50,9 @@
                 "_DEBUG",
                 "UNICODE",
                 "_UNICODE",
-                "linux"
+                "linux",
+                "LINUX",
+                "AMD64"
             ],
             "cStandard": "c11",
             "cppStandard": "gnu++14",

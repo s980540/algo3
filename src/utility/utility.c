@@ -2,6 +2,7 @@
 
 #include <limits.h>
 
+#ifdef WIN32
 void *aligned_alloc(size_t size, u32 align)
 {
 	size_t addr;
@@ -25,6 +26,7 @@ void aligned_free(void *aligned_ptr)
 	// printf("[%s](%x,%x)\n", __FUNCTION__, *((size_t *)aligned_ptr - 1), aligned_ptr);
 	free((void *)(*((size_t *)aligned_ptr - 1)));
 }
+#endif
 
 unsigned long get_num(const char *str)
 {
@@ -58,8 +60,12 @@ unsigned long get_num(const char *str)
 
 void print_buf(const void *buf, size_t size, char *title)
 {
-	u32 i, addr = (u32)buf;
-	u32 j, p;
+	u32 i, j, p;
+#ifdef AMD64
+	u64 addr = (u64)buf;
+#else
+	u32 addr = (u32)buf;
+#endif
 
 	if (title) {
 		printf("%s\n", title);
@@ -70,7 +76,11 @@ void print_buf(const void *buf, size_t size, char *title)
 		return;
 	}
 
+#ifdef AMD64
+	printf("0x%0llX: ", addr);
+#else
 	printf("0x%08X: ", addr);
+#endif
 
 	for (i = 0; i < size; i++) {
 		if (i && (i % 16 == 0)) {
@@ -82,7 +92,11 @@ void print_buf(const void *buf, size_t size, char *title)
 					printf("%c", ((char *)buf)[j]);
 				}
 			}
+		#ifdef AMD64
+			printf("\n0x%0llX: ", addr + i);
+		#else
 			printf("\n0x%08X: ", addr + i);
+		#endif
 			p = 1;
 		} else if (i && (i % 8 == 0)) {
 			printf(" ");

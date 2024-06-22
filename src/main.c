@@ -9,7 +9,7 @@
 #include <time.h>
 #include <stdint.h>
 
-foo_ts foo = {.mutex = (PTHREAD_MUTEX_INITIALIZER), .val = 0};
+foo_ts foo = {.mutex = PTHREAD_MUTEX_INITIALIZER, .val = 0};
 
 thread_info_t *m_thread_info0;
 thread_info_t *m_thread_info1;
@@ -228,15 +228,9 @@ int main(int argc, char *argv[])
 	printf("ARM\n");
 	#endif
 
-	// //
-	// thread_test(argc, argv);
-	// //
-	// nvme_mi_test_checksum();
-	// //
-	// ret = generate_random_binfile(argc, argv);
-	// if (ret) {
-	//     printf("generate_random_binfile failed (%d)\n", ret);
-	// }
+	//
+	nvme_mi_test_checksum();
+
 	//
 	union pause_cpsr_field pause_cpsr;
 
@@ -347,6 +341,15 @@ int main(int argc, char *argv[])
 	// test1();
 	// test3();
 	// test2();
+
+	//
+	ret = generate_random_binfile(argc, argv);
+	if (ret) {
+	    printf("generate_random_binfile failed (%d)\n", ret);
+	}
+
+	// //
+	// thread_test(argc, argv);
 
 	return ret;
 }
