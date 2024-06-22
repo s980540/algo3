@@ -6,8 +6,8 @@
 #include <pthread.h>
 
 typedef struct _foo_ts {
-    pthread_mutex_t mutex;
-    int val;
+	pthread_mutex_t mutex;
+	int val;
 } foo_ts;
 
 extern foo_ts foo;

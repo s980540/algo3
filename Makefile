@@ -1,8 +1,7 @@
 # Project: algo3
 # Makefile created by Steve Chang
-# Date modified: 2024.02.25
+# Date modified: 2024.06.22
 
-BINNAME = algo.exe
 PROJDIR = $(CURDIR)
 SRCDIR 	= $(PROJDIR)/src
 LIBDIR	= $(PROJDIR)/lib
@@ -17,15 +16,106 @@ SUBDIR = \
 	src/utility \
 	src/aardvark \
 	src/bin \
+	src/opt \
 
 COMMON_INCLUDE = \
 	$(CURDIR)/include \
 
-EXTERN_LIBDIR = \
-	"C:/MinGW/lib" \
+ifeq ($(OS),Windows_NT)
+    OSFLAG += -D WIN32
+    ifeq ($(PROCESSOR_ARCHITEW6432),AMD64)
+        OSFLAG += -D AMD64
+		BINNAME = algo3.exe
 
-EXTERN_INCLUDE = \
-	"C:/MinGW/include" \
+		EXTERN_LIBDIR = \
+			"C:/MinGW/lib" \
+
+		EXTERN_INCLUDE = \
+			"C:/MinGW/include" \
+
+    else
+        ifeq ($(PROCESSOR_ARCHITECTURE),AMD64)
+            OSFLAG += -D AMD64
+			BINNAME = algo3.exe
+
+			EXTERN_LIBDIR = \
+				"C:/MinGW/lib" \
+
+			EXTERN_INCLUDE = \
+				"C:/MinGW/include" \
+
+        endif
+        ifeq ($(PROCESSOR_ARCHITECTURE),x86)
+            OSFLAG += -D IA32
+			BINNAME = algo3.exe
+
+			EXTERN_LIBDIR = \
+				"C:/MinGW/lib" \
+
+			EXTERN_INCLUDE = \
+				"C:/MinGW/include" \
+
+        endif
+    endif
+else
+    UNAME_S := $(shell uname -s)
+    ifeq ($(UNAME_S),Linux)
+        OSFLAG += -D LINUX
+		BINNAME = algo3
+
+		EXTERN_LIBDIR = \
+			"/usr/lib" \
+
+		EXTERN_INCLUDE = \
+			"/usr/include" \
+
+    endif
+    ifeq ($(UNAME_S),Darwin)
+        OSFLAG += -D OSX
+		BINNAME = algo3
+
+		EXTERN_LIBDIR = \
+			"/usr/lib" \
+
+		EXTERN_INCLUDE = \
+			"/usr/include" \
+
+    endif
+    UNAME_P := $(shell uname -p)
+    ifeq ($(UNAME_P),x86_64)
+        OSFLAG += -D AMD64
+		BINNAME = algo3
+
+		EXTERN_LIBDIR = \
+			"/usr/lib" \
+
+		EXTERN_INCLUDE = \
+			"/usr/include" \
+
+    endif
+    ifneq ($(filter %86,$(UNAME_P)),)
+        OSFLAG += -D IA32
+		BINNAME = algo3
+
+		EXTERN_LIBDIR = \
+			"/usr/lib" \
+
+		EXTERN_INCLUDE = \
+			"/usr/include" \
+
+    endif
+    ifneq ($(filter arm%,$(UNAME_P)),)
+        OSFLAG += -D ARM
+		BINNAME = algo3
+
+		EXTERN_LIBDIR = \
+			"/usr/lib" \
+
+		EXTERN_INCLUDE = \
+			"/usr/include" \
+
+    endif
+endif
 
 CC = gcc
 AR = ar
@@ -54,6 +144,7 @@ LIBS = \
 	thread \
 	bin \
 	utility \
+	opt \
 	aardvark \
 
 LDLIBS = $(foreach lib,$(LIBS),-l$(lib)) -lpthread	# <-- Do not change this order.
@@ -68,9 +159,11 @@ export EXTERN_LIBDIR
 export EXTERN_INCLUDE
 export CC AR
 export MAKE_RULES
+export OSFLAG
 
 .PHONY: all
 all:
+	@echo $(OSFLAG)
 	mkdir -p $(BINDIR)
 	mkdir -p $(LIBDIR)
 	for dir in $(SUBDIR); do \
@@ -101,6 +194,22 @@ objall:
 
 .PHONY: objclean
 objclean:
+	for dir in $(SUBDIR); do \
+		cd $$dir; \
+		make -j $@; \
+		cd $(CURDIR); \
+	done
+
+.PHONY: asmall
+asmall:
+	for dir in $(SUBDIR); do \
+		cd $$dir; \
+		make -j $@; \
+		cd $(CURDIR); \
+	done
+
+.PHONY: asmclean
+asmclean:
 	for dir in $(SUBDIR); do \
 		cd $$dir; \
 		make -j $@; \

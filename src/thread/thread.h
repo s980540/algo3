@@ -8,11 +8,11 @@
 #include <time.h>
 
 typedef struct _thread_info_t {
-    pthread_t thread;
-    int thread_id;
-    long sleep_nsec;
-    int argc;
-    char **argv;
+	pthread_t thread;
+	int thread_id;
+	long sleep_nsec;
+	int argc;
+	char **argv;
 } thread_info_t;
 
 #define THREAD_SLEEP_MSEC(msec) ((msec) * 1000000)

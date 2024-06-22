@@ -14,4 +14,6 @@ SRCS = $(wildcard *.c)
 
 OBJDIR = obj
 
+ASMDIR = asm
+
 include $(MAKE_RULES)

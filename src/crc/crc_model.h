@@ -73,27 +73,63 @@
 
 /******************************************************************************/
 
+/* TABLE PARAMETERS                                                           */
+/* ================                                                           */
+/* The following parameters entirely determine the table to be generated. You */
+/* should need to modify only the definitions in this section before running  */
+/* this program.                                                              */
+/*                                                                            */
+/*    TB_FILE  is the name of the output file.                                */
+/*    TB_WIDTH is the table width in bytes (either 2 or 4).                   */
+/*    TB_POLY  is the "polynomial", which must be TB_WIDTH bytes wide.        */
+/*    TB_REVER indicates whether the table is to be reversed (reflected).     */
+/*                                                                            */
+/* Example:                                                                   */
+/*                                                                            */
+/*    #define TB_FILE   "crctable.out"                                        */
+/*    #define TB_WIDTH  2                                                     */
+/*    #define TB_POLY   0x8005L                                               */
+/*    #define TB_REVER  TRUE                                                  */
+
+#define TB_FILE   "crctable.out"
+#define TB_WIDTH  4
+// #define TB_POLY   0x04C11DB7L
+/* CRC32 polynomial in reversed bit order. */
+// #define REVERSED_POLY 0xedb88320
+
+#define TB_POLY                         0x1EDC6F41L // CRC-32C (Castagnoli)
+
+// /* CRC32C polynomial in reversed bit order. */
+// #define REVERSED_POLY                   0x82F63b78L
+
+
+#define TB_REVER  TRUE
+
+/******************************************************************************/
+
+/******************************************************************************/
+
 /* The following definitions are extracted from my style header file which    */
 /* would be cumbersome to distribute with this package. The DONE_STYLE is the */
 /* idempotence symbol used in my style header file.                           */
 
 #ifndef DONE_STYLE
 
-    typedef unsigned long   ulong;
-    // typedef unsigned        bool;
-    typedef unsigned char *p_ubyte_;
+typedef unsigned long   ulong;
+// typedef unsigned        bool;
+typedef unsigned char *p_ubyte_;
 
-    #ifndef TRUE
-        #define FALSE 0
-        #define TRUE  1
-    #endif
+#ifndef TRUE
+#define FALSE 0
+#define TRUE  1
+#endif
 
-    /* Change to the second definition if you don't have prototypes. */
-    #define P_(A) A
-    /* #define P_(A) () */
+/* Change to the second definition if you don't have prototypes. */
+#define P_(A) A
+/* #define P_(A) () */
 
-    /* Uncomment this definition if you don't have void. */
-    /* typedef int void; */
+/* Uncomment this definition if you don't have void. */
+/* typedef int void; */
 
 #endif
 
@@ -105,14 +141,14 @@
 /* model algorithm. Most of the fields are model parameters which must be */
 /* set before the first initializing call to cm_ini.                      */
 typedef struct {
-    int   cm_width;   /* Parameter: Width in bits [8,32].       */
-    ulong cm_poly;    /* Parameter: The algorithm's polynomial. */
-    ulong cm_init;    /* Parameter: Initial register value.     */
-    bool  cm_refin;   /* Parameter: Reflect input bytes?        */
-    bool  cm_refot;   /* Parameter: Reflect output CRC?         */
-    ulong cm_xorot;   /* Parameter: XOR this to output CRC.     */
+	int   cm_width;   /* Parameter: Width in bits [8,32].       */
+	ulong cm_poly;    /* Parameter: The algorithm's polynomial. */
+	ulong cm_init;    /* Parameter: Initial register value.     */
+	bool  cm_refin;   /* Parameter: Reflect input bytes?        */
+	bool  cm_refot;   /* Parameter: Reflect output CRC?         */
+	ulong cm_xorot;   /* Parameter: XOR this to output CRC.     */
 
-    ulong cm_reg;     /* Context: Context during execution.     */
+	ulong cm_reg;     /* Context: Context during execution.     */
 } cm_t;
 typedef cm_t *p_cm_t;
 

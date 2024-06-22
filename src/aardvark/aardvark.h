@@ -115,40 +115,40 @@ typedef double  f64;
  * defined as follows:
  */
 enum AardvarkStatus {
-    /* General codes (0 to -99) */
-    AA_OK                       =    0,
-    AA_UNABLE_TO_LOAD_LIBRARY   =   -1,
-    AA_UNABLE_TO_LOAD_DRIVER    =   -2,
-    AA_UNABLE_TO_LOAD_FUNCTION  =   -3,
-    AA_INCOMPATIBLE_LIBRARY     =   -4,
-    AA_INCOMPATIBLE_DEVICE      =   -5,
-    AA_COMMUNICATION_ERROR      =   -6,
-    AA_UNABLE_TO_OPEN           =   -7,
-    AA_UNABLE_TO_CLOSE          =   -8,
-    AA_INVALID_HANDLE           =   -9,
-    AA_CONFIG_ERROR             =  -10,
+	/* General codes (0 to -99) */
+	AA_OK                       =    0,
+	AA_UNABLE_TO_LOAD_LIBRARY   =   -1,
+	AA_UNABLE_TO_LOAD_DRIVER    =   -2,
+	AA_UNABLE_TO_LOAD_FUNCTION  =   -3,
+	AA_INCOMPATIBLE_LIBRARY     =   -4,
+	AA_INCOMPATIBLE_DEVICE      =   -5,
+	AA_COMMUNICATION_ERROR      =   -6,
+	AA_UNABLE_TO_OPEN           =   -7,
+	AA_UNABLE_TO_CLOSE          =   -8,
+	AA_INVALID_HANDLE           =   -9,
+	AA_CONFIG_ERROR             =  -10,
 
-    /* I2C codes (-100 to -199) */
-    AA_I2C_NOT_AVAILABLE        = -100,
-    AA_I2C_NOT_ENABLED          = -101,
-    AA_I2C_READ_ERROR           = -102,
-    AA_I2C_WRITE_ERROR          = -103,
-    AA_I2C_SLAVE_BAD_CONFIG     = -104,
-    AA_I2C_SLAVE_READ_ERROR     = -105,
-    AA_I2C_SLAVE_TIMEOUT        = -106,
-    AA_I2C_DROPPED_EXCESS_BYTES = -107,
-    AA_I2C_BUS_ALREADY_FREE     = -108,
+	/* I2C codes (-100 to -199) */
+	AA_I2C_NOT_AVAILABLE        = -100,
+	AA_I2C_NOT_ENABLED          = -101,
+	AA_I2C_READ_ERROR           = -102,
+	AA_I2C_WRITE_ERROR          = -103,
+	AA_I2C_SLAVE_BAD_CONFIG     = -104,
+	AA_I2C_SLAVE_READ_ERROR     = -105,
+	AA_I2C_SLAVE_TIMEOUT        = -106,
+	AA_I2C_DROPPED_EXCESS_BYTES = -107,
+	AA_I2C_BUS_ALREADY_FREE     = -108,
 
-    /* SPI codes (-200 to -299) */
-    AA_SPI_NOT_AVAILABLE        = -200,
-    AA_SPI_NOT_ENABLED          = -201,
-    AA_SPI_WRITE_ERROR          = -202,
-    AA_SPI_SLAVE_READ_ERROR     = -203,
-    AA_SPI_SLAVE_TIMEOUT        = -204,
-    AA_SPI_DROPPED_EXCESS_BYTES = -205,
+	/* SPI codes (-200 to -299) */
+	AA_SPI_NOT_AVAILABLE        = -200,
+	AA_SPI_NOT_ENABLED          = -201,
+	AA_SPI_WRITE_ERROR          = -202,
+	AA_SPI_SLAVE_READ_ERROR     = -203,
+	AA_SPI_SLAVE_TIMEOUT        = -204,
+	AA_SPI_DROPPED_EXCESS_BYTES = -205,
 
-    /* GPIO codes (-400 to -499) */
-    AA_GPIO_NOT_AVAILABLE       = -400
+	/* GPIO codes (-400 to -499) */
+	AA_GPIO_NOT_AVAILABLE       = -400
 };
 #ifndef __cplusplus
 typedef enum AardvarkStatus AardvarkStatus;
@@ -192,19 +192,19 @@ typedef s32 aa_s32;
  * ex. v1.20 would be encoded as:  0x0114
  */
 struct AardvarkVersion {
-    /* Software, firmware, and hardware versions. */
-    u16 software;
-    u16 firmware;
-    u16 hardware;
+	/* Software, firmware, and hardware versions. */
+	u16 software;
+	u16 firmware;
+	u16 hardware;
 
-    /* Firmware requires that software must be >= this version. */
-    u16 sw_req_by_fw;
+	/* Firmware requires that software must be >= this version. */
+	u16 sw_req_by_fw;
 
-    /* Software requires that firmware must be >= this version. */
-    u16 fw_req_by_sw;
+	/* Software requires that firmware must be >= this version. */
+	u16 fw_req_by_sw;
 
-    /* Software requires that the API interface must be >= this version. */
-    u16 api_req_by_sw;
+	/* Software requires that the API interface must be >= this version. */
+	u16 api_req_by_sw;
 };
 #ifndef __cplusplus
 typedef struct AardvarkVersion AardvarkVersion;
@@ -236,8 +236,8 @@ typedef struct AardvarkVersion AardvarkVersion;
  */
 #define AA_PORT_NOT_FREE 0x8000
 int aa_find_devices(
-            int   num_devices,
-            u16 *devices
+        int   num_devices,
+        u16 *devices
 );
 
 
@@ -252,10 +252,10 @@ int aa_find_devices(
  * serial numbers.
  */
 int aa_find_devices_ext(
-            int   num_devices,
-            u16 *devices,
-            int   num_ids,
-            u32 *unique_ids
+        int   num_devices,
+        u16 *devices,
+        int   num_ids,
+        u32 *unique_ids
 );
 
 
@@ -275,7 +275,7 @@ int aa_find_devices_ext(
  * applications, the use of aa_open_ext() is recommended.
  */
 Aardvark aa_open(
-            int port_number
+        int port_number
 );
 
 
@@ -296,25 +296,25 @@ Aardvark aa_open(
  * applications, the use of aa_open() is recommended.
  */
 struct AardvarkExt {
-    /* Version matrix */
-    AardvarkVersion   version;
+	/* Version matrix */
+	AardvarkVersion   version;
 
-    /* Features of this device. */
-    int               features;
+	/* Features of this device. */
+	int               features;
 };
 #ifndef __cplusplus
 typedef struct AardvarkExt AardvarkExt;
 #endif
 
 Aardvark aa_open_ext(
-            int           port_number,
-            AardvarkExt *aa_ext
+        int           port_number,
+        AardvarkExt *aa_ext
 );
 
 
 /* Close the Aardvark port. */
 int aa_close(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -324,7 +324,7 @@ int aa_close(
  * The port number is a zero-indexed integer.
  */
 int aa_port(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -336,7 +336,7 @@ int aa_port(
 #define AA_FEATURE_I2C 0x00000002
 #define AA_FEATURE_GPIO 0x00000008
 int aa_features(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -347,7 +347,7 @@ int aa_features(
  * 10-digit serial number.
  */
 u32 aa_unique_id(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -357,7 +357,7 @@ u32 aa_unique_id(
  * be loaded, return a NULL string.
  */
 const char *aa_status_string(
-            int status
+        int status
 );
 
 
@@ -372,9 +372,9 @@ const char *aa_status_string(
 #define AA_LOG_STDOUT 1
 #define AA_LOG_STDERR 2
 int aa_log(
-            Aardvark aardvark,
-            int      level,
-            int      handle
+        Aardvark aardvark,
+        int      level,
+        int      handle
 );
 
 
@@ -384,8 +384,8 @@ int aa_log(
  * software and required api versions are set.
  */
 int aa_version(
-            Aardvark          aardvark,
-            AardvarkVersion *version
+        Aardvark          aardvark,
+        AardvarkVersion *version
 );
 
 
@@ -394,11 +394,11 @@ int aa_version(
  * GPIO functions.
  */
 enum AardvarkConfig {
-    AA_CONFIG_GPIO_ONLY = 0x00,
-    AA_CONFIG_SPI_GPIO  = 0x01,
-    AA_CONFIG_GPIO_I2C  = 0x02,
-    AA_CONFIG_SPI_I2C   = 0x03,
-    AA_CONFIG_QUERY     = 0x80
+	AA_CONFIG_GPIO_ONLY = 0x00,
+	AA_CONFIG_SPI_GPIO  = 0x01,
+	AA_CONFIG_GPIO_I2C  = 0x02,
+	AA_CONFIG_SPI_I2C   = 0x03,
+	AA_CONFIG_QUERY     = 0x80
 };
 #ifndef __cplusplus
 typedef enum AardvarkConfig AardvarkConfig;
@@ -407,8 +407,8 @@ typedef enum AardvarkConfig AardvarkConfig;
 #define AA_CONFIG_SPI_MASK 0x00000001
 #define AA_CONFIG_I2C_MASK 0x00000002
 int aa_configure(
-            Aardvark       aardvark,
-            AardvarkConfig config
+        Aardvark       aardvark,
+        AardvarkConfig config
 );
 
 
@@ -420,8 +420,8 @@ int aa_configure(
 #define AA_TARGET_POWER_BOTH 0x03
 #define AA_TARGET_POWER_QUERY 0x80
 int aa_target_power(
-            Aardvark aardvark,
-            u08      power_mask
+        Aardvark aardvark,
+        u08      power_mask
 );
 
 
@@ -431,7 +431,7 @@ int aa_target_power(
  * Returns the number of milliseconds slept
  */
 u32 aa_sleep_ms(
-            u32 milliseconds
+        u32 milliseconds
 );
 
 
@@ -451,8 +451,8 @@ u32 aa_sleep_ms(
 #define AA_ASYNC_I2C_WRITE 0x00000002
 #define AA_ASYNC_SPI 0x00000004
 int aa_async_poll(
-            Aardvark aardvark,
-            int      timeout
+        Aardvark aardvark,
+        int      timeout
 );
 
 
@@ -462,7 +462,7 @@ int aa_async_poll(
  ========================================================================*/
 /* Free the I2C bus. */
 int aa_i2c_free_bus(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -472,8 +472,8 @@ int aa_i2c_free_bus(
  * returned.
  */
 int aa_i2c_bitrate(
-            Aardvark aardvark,
-            int      bitrate_khz
+        Aardvark aardvark,
+        int      bitrate_khz
 );
 
 
@@ -482,18 +482,18 @@ int aa_i2c_bitrate(
  * the timeout is unchanged and the current timeout is returned.
  */
 int aa_i2c_bus_timeout(
-            Aardvark aardvark,
-            u16      timeout_ms
+        Aardvark aardvark,
+        u16      timeout_ms
 );
 
 
 enum AardvarkI2cFlags {
-    AA_I2C_NO_FLAGS          = 0x00,
-    AA_I2C_10_BIT_ADDR       = 0x01,
-    AA_I2C_COMBINED_FMT      = 0x02,
-    AA_I2C_NO_STOP           = 0x04,
-    AA_I2C_SIZED_READ        = 0x10,
-    AA_I2C_SIZED_READ_EXTRA1 = 0x20
+	AA_I2C_NO_FLAGS          = 0x00,
+	AA_I2C_10_BIT_ADDR       = 0x01,
+	AA_I2C_COMBINED_FMT      = 0x02,
+	AA_I2C_NO_STOP           = 0x04,
+	AA_I2C_SIZED_READ        = 0x10,
+	AA_I2C_SIZED_READ_EXTRA1 = 0x20
 };
 #ifndef __cplusplus
 typedef enum AardvarkI2cFlags AardvarkI2cFlags;
@@ -501,23 +501,23 @@ typedef enum AardvarkI2cFlags AardvarkI2cFlags;
 
 /* Read a stream of bytes from the I2C slave device. */
 int aa_i2c_read(
-            Aardvark         aardvark,
-            u16              slave_addr,
-            AardvarkI2cFlags flags,
-            u16              num_bytes,
-            u08             *data_in
+        Aardvark         aardvark,
+        u16              slave_addr,
+        AardvarkI2cFlags flags,
+        u16              num_bytes,
+        u08             *data_in
 );
 
 
 enum AardvarkI2cStatus {
-    AA_I2C_STATUS_OK            = 0,
-    AA_I2C_STATUS_BUS_ERROR     = 1,
-    AA_I2C_STATUS_SLA_ACK       = 2,
-    AA_I2C_STATUS_SLA_NACK      = 3,
-    AA_I2C_STATUS_DATA_NACK     = 4,
-    AA_I2C_STATUS_ARB_LOST      = 5,
-    AA_I2C_STATUS_BUS_LOCKED    = 6,
-    AA_I2C_STATUS_LAST_DATA_ACK = 7
+	AA_I2C_STATUS_OK            = 0,
+	AA_I2C_STATUS_BUS_ERROR     = 1,
+	AA_I2C_STATUS_SLA_ACK       = 2,
+	AA_I2C_STATUS_SLA_NACK      = 3,
+	AA_I2C_STATUS_DATA_NACK     = 4,
+	AA_I2C_STATUS_ARB_LOST      = 5,
+	AA_I2C_STATUS_BUS_LOCKED    = 6,
+	AA_I2C_STATUS_LAST_DATA_ACK = 7
 };
 #ifndef __cplusplus
 typedef enum AardvarkI2cStatus AardvarkI2cStatus;
@@ -530,22 +530,22 @@ typedef enum AardvarkI2cStatus AardvarkI2cStatus;
  * is a status code.
  */
 int aa_i2c_read_ext(
-            Aardvark         aardvark,
-            u16              slave_addr,
-            AardvarkI2cFlags flags,
-            u16              num_bytes,
-            u08             *data_in,
-            u16             *num_read
+        Aardvark         aardvark,
+        u16              slave_addr,
+        AardvarkI2cFlags flags,
+        u16              num_bytes,
+        u08             *data_in,
+        u16             *num_read
 );
 
 
 /* Write a stream of bytes to the I2C slave device. */
 int aa_i2c_write(
-            Aardvark         aardvark,
-            u16              slave_addr,
-            AardvarkI2cFlags flags,
-            u16              num_bytes,
-            const u08       *data_out
+        Aardvark         aardvark,
+        u16              slave_addr,
+        AardvarkI2cFlags flags,
+        u16              num_bytes,
+        const u08       *data_out
 );
 
 
@@ -556,12 +556,12 @@ int aa_i2c_write(
  * is a status code.
  */
 int aa_i2c_write_ext(
-            Aardvark         aardvark,
-            u16              slave_addr,
-            AardvarkI2cFlags flags,
-            u16              num_bytes,
-            const u08       *data_out,
-            u16             *num_written
+        Aardvark         aardvark,
+        u16              slave_addr,
+        AardvarkI2cFlags flags,
+        u16              num_bytes,
+        const u08       *data_out,
+        u16             *num_written
 );
 
 
@@ -575,29 +575,29 @@ int aa_i2c_write_ext(
  * the status given as (read_status << 8) | (write_status).
  */
 int aa_i2c_write_read(
-            Aardvark         aardvark,
-            u16              slave_addr,
-            AardvarkI2cFlags flags,
-            u16              out_num_bytes,
-            const u08       *out_data,
-            u16             *num_written,
-            u16              in_num_bytes,
-            u08             *in_data,
-            u16             *num_read
+        Aardvark         aardvark,
+        u16              slave_addr,
+        AardvarkI2cFlags flags,
+        u16              out_num_bytes,
+        const u08       *out_data,
+        u16             *num_written,
+        u16              in_num_bytes,
+        u08             *in_data,
+        u16             *num_read
 );
 
 
 /* Enable/Disable the Aardvark as an I2C slave device */
 int aa_i2c_slave_enable(
-            Aardvark aardvark,
-            u08      addr,
-            u16      maxTxBytes,
-            u16      maxRxBytes
+        Aardvark aardvark,
+        u08      addr,
+        u16      maxTxBytes,
+        u16      maxRxBytes
 );
 
 
 int aa_i2c_slave_disable(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -606,9 +606,9 @@ int aa_i2c_slave_disable(
  * into slave mode and contacted by a Master.
  */
 int aa_i2c_slave_set_response(
-            Aardvark    aardvark,
-            u08         num_bytes,
-            const u08 *data_out
+        Aardvark    aardvark,
+        u08         num_bytes,
+        const u08 *data_out
 );
 
 
@@ -620,32 +620,32 @@ int aa_i2c_slave_set_response(
  * previous write transactions.
  */
 int aa_i2c_slave_write_stats(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
 /* Read the bytes from an I2C slave reception */
 int aa_i2c_slave_read(
-            Aardvark aardvark,
-            u08     *addr,
-            u16      num_bytes,
-            u08     *data_in
+        Aardvark aardvark,
+        u08     *addr,
+        u16      num_bytes,
+        u08     *data_in
 );
 
 
 /* Extended functions that return status code */
 int aa_i2c_slave_write_stats_ext(
-            Aardvark aardvark,
-            u16     *num_written
+        Aardvark aardvark,
+        u16     *num_written
 );
 
 
 int aa_i2c_slave_read_ext(
-            Aardvark aardvark,
-            u08     *addr,
-            u16      num_bytes,
-            u08     *data_in,
-            u16     *num_read
+        Aardvark aardvark,
+        u08     *addr,
+        u16      num_bytes,
+        u08     *data_in,
+        u16     *num_read
 );
 
 
@@ -657,8 +657,8 @@ int aa_i2c_slave_read_ext(
 #define AA_I2C_PULLUP_BOTH 0x03
 #define AA_I2C_PULLUP_QUERY 0x80
 int aa_i2c_pullup(
-            Aardvark aardvark,
-            u08      pullup_mask
+        Aardvark aardvark,
+        u08      pullup_mask
 );
 
 
@@ -672,8 +672,8 @@ int aa_i2c_pullup(
  * returned.
  */
 int aa_spi_bitrate(
-            Aardvark aardvark,
-            int      bitrate_khz
+        Aardvark aardvark,
+        int      bitrate_khz
 );
 
 
@@ -701,24 +701,24 @@ int aa_spi_bitrate(
  * more details.
  */
 enum AardvarkSpiPolarity {
-    AA_SPI_POL_RISING_FALLING = 0,
-    AA_SPI_POL_FALLING_RISING = 1
+	AA_SPI_POL_RISING_FALLING = 0,
+	AA_SPI_POL_FALLING_RISING = 1
 };
 #ifndef __cplusplus
 typedef enum AardvarkSpiPolarity AardvarkSpiPolarity;
 #endif
 
 enum AardvarkSpiPhase {
-    AA_SPI_PHASE_SAMPLE_SETUP = 0,
-    AA_SPI_PHASE_SETUP_SAMPLE = 1
+	AA_SPI_PHASE_SAMPLE_SETUP = 0,
+	AA_SPI_PHASE_SETUP_SAMPLE = 1
 };
 #ifndef __cplusplus
 typedef enum AardvarkSpiPhase AardvarkSpiPhase;
 #endif
 
 enum AardvarkSpiBitorder {
-    AA_SPI_BITORDER_MSB = 0,
-    AA_SPI_BITORDER_LSB = 1
+	AA_SPI_BITORDER_MSB = 0,
+	AA_SPI_BITORDER_LSB = 1
 };
 #ifndef __cplusplus
 typedef enum AardvarkSpiBitorder AardvarkSpiBitorder;
@@ -726,31 +726,31 @@ typedef enum AardvarkSpiBitorder AardvarkSpiBitorder;
 
 /* Configure the SPI master or slave interface */
 int aa_spi_configure(
-            Aardvark            aardvark,
-            AardvarkSpiPolarity polarity,
-            AardvarkSpiPhase    phase,
-            AardvarkSpiBitorder bitorder
+        Aardvark            aardvark,
+        AardvarkSpiPolarity polarity,
+        AardvarkSpiPhase    phase,
+        AardvarkSpiBitorder bitorder
 );
 
 
 /* Write a stream of bytes to the downstream SPI slave device. */
 int aa_spi_write(
-            Aardvark    aardvark,
-            u16         out_num_bytes,
-            const u08 *data_out,
-            u16         in_num_bytes,
-            u08        *data_in
+        Aardvark    aardvark,
+        u16         out_num_bytes,
+        const u08 *data_out,
+        u16         in_num_bytes,
+        u08        *data_in
 );
 
 
 /* Enable/Disable the Aardvark as an SPI slave device */
 int aa_spi_slave_enable(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
 int aa_spi_slave_disable(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -759,17 +759,17 @@ int aa_spi_slave_disable(
  * into slave mode and contacted by a Master.
  */
 int aa_spi_slave_set_response(
-            Aardvark    aardvark,
-            u08         num_bytes,
-            const u08 *data_out
+        Aardvark    aardvark,
+        u08         num_bytes,
+        const u08 *data_out
 );
 
 
 /* Read the bytes from an SPI slave reception */
 int aa_spi_slave_read(
-            Aardvark aardvark,
-            u16      num_bytes,
-            u08     *data_in
+        Aardvark aardvark,
+        u16      num_bytes,
+        u08     *data_in
 );
 
 
@@ -781,16 +781,16 @@ int aa_spi_slave_read(
  * only affects the SPI master functions on the Aardvark.
  */
 enum AardvarkSpiSSPolarity {
-    AA_SPI_SS_ACTIVE_LOW  = 0,
-    AA_SPI_SS_ACTIVE_HIGH = 1
+	AA_SPI_SS_ACTIVE_LOW  = 0,
+	AA_SPI_SS_ACTIVE_HIGH = 1
 };
 #ifndef __cplusplus
 typedef enum AardvarkSpiSSPolarity AardvarkSpiSSPolarity;
 #endif
 
 int aa_spi_master_ss_polarity(
-            Aardvark              aardvark,
-            AardvarkSpiSSPolarity polarity
+        Aardvark              aardvark,
+        AardvarkSpiSSPolarity polarity
 );
 
 
@@ -807,12 +807,12 @@ int aa_spi_master_ss_polarity(
  * enumerated type.
  */
 enum AardvarkGpioBits {
-    AA_GPIO_SCL  = 0x01,
-    AA_GPIO_SDA  = 0x02,
-    AA_GPIO_MISO = 0x04,
-    AA_GPIO_SCK  = 0x08,
-    AA_GPIO_MOSI = 0x10,
-    AA_GPIO_SS   = 0x20
+	AA_GPIO_SCL  = 0x01,
+	AA_GPIO_SDA  = 0x02,
+	AA_GPIO_MISO = 0x04,
+	AA_GPIO_SCK  = 0x08,
+	AA_GPIO_MOSI = 0x10,
+	AA_GPIO_SS   = 0x20
 };
 #ifndef __cplusplus
 typedef enum AardvarkGpioBits AardvarkGpioBits;
@@ -837,8 +837,8 @@ typedef enum AardvarkGpioBits AardvarkGpioBits;
 #define AA_GPIO_DIR_INPUT 0
 #define AA_GPIO_DIR_OUTPUT 1
 int aa_gpio_direction(
-            Aardvark aardvark,
-            u08      direction_mask
+        Aardvark aardvark,
+        u08      direction_mask
 );
 
 
@@ -854,8 +854,8 @@ int aa_gpio_direction(
 #define AA_GPIO_PULLUP_OFF 0
 #define AA_GPIO_PULLUP_ON 1
 int aa_gpio_pullup(
-            Aardvark aardvark,
-            u08      pullup_mask
+        Aardvark aardvark,
+        u08      pullup_mask
 );
 
 
@@ -867,7 +867,7 @@ int aa_gpio_pullup(
  * position in the mask will be undefined.
  */
 int aa_gpio_get(
-            Aardvark aardvark
+        Aardvark aardvark
 );
 
 
@@ -880,8 +880,8 @@ int aa_gpio_get(
  * configured as an output.
  */
 int aa_gpio_set(
-            Aardvark aardvark,
-            u08      value
+        Aardvark aardvark,
+        u08      value
 );
 
 
@@ -905,8 +905,8 @@ int aa_gpio_set(
  * from the value last returned by aa_gpio_get.
  */
 int aa_gpio_change(
-            Aardvark aardvark,
-            u16      timeout
+        Aardvark aardvark,
+        u16      timeout
 );
 
 

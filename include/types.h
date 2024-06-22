@@ -2,9 +2,9 @@
 #define TYPES_H
 
 #ifndef __GNUC__
-    #define __asm__         asm
-    #define __typeof__      typeof
-    #define __inline__      inline
+#define __asm__         asm
+#define __typeof__      typeof
+#define __inline__      inline
 #endif
 
 typedef unsigned char u8;
@@ -45,13 +45,13 @@ typedef int ret_code;
 #define NULL        ((void *)0)
 
 enum {
-    false = 0,
-    true  = 1
+	false = 0,
+	true  = 1
 };
 
 enum {
-    FALSE = 0,
-    TRUE = 1
+	FALSE = 0,
+	TRUE = 1
 };
 #if 0
 #define _offsetof(type, member)  ((size_t)&((type *)0)->member)

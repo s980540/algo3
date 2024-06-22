@@ -2,16 +2,16 @@
 
 u8 checksum8_append(u8 chksum, const char *in, u32 len)
 {
-    while (len-- > 0) {
-        chksum += *in++;
-    }
+	while (len-- > 0) {
+		chksum += *in++;
+	}
 
-    return chksum;
+	return chksum;
 }
 
 u8 checksum8(u8 chksum, const char *in, u32 len)
 {
-    chksum = checksum8_append(chksum, in, len);
+	chksum = checksum8_append(chksum, in, len);
 
-    return (~chksum) + 1;
+	return (~chksum) + 1;
 }

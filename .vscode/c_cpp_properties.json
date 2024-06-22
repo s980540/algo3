@@ -1,14 +1,14 @@
 {
     "configurations": [
         {
-            "name": "Win32",
+            "name": "MinGW32",
             "includePath": [
-                "${workspaceFolder}/**",
-                "${workspaceFolder}/include",
-                "${workspaceFolder}/src/crc",
-                "${workspaceFolder}/src/mutex",
-                "${workspaceFolder}/src/thread",
-                "${workspaceFolder}/src/utility"
+                "c:/Users/s9805/OneDrive/Workspace/algo3/**",
+                "c:/Users/s9805/OneDrive/Workspace/algo3/include",
+                "c:/Users/s9805/OneDrive/Workspace/algo3/src/crc",
+                "c:/Users/s9805/OneDrive/Workspace/algo3/src/mutex",
+                "c:/Users/s9805/OneDrive/Workspace/algo3/src/thread",
+                "c:/Users/s9805/OneDrive/Workspace/algo3/src/utility"
             ],
             "defines": [
                 "_DEBUG",
@@ -17,7 +17,58 @@
             ],
             "cStandard": "c11",
             "cppStandard": "gnu++14",
-            "intelliSenseMode": "windows-gcc-x86"
+            "intelliSenseMode": "windows-gcc-x86",
+            "macFrameworkPath": [],
+            "mergeConfigurations": false,
+            "compilerPath": "C:\\MinGW\\bin\\gcc.exe",
+            "browse": {
+                "path": [
+                    "c:/Users/s9805/OneDrive/Workspace/algo3/**",
+                    "c:/Users/s9805/OneDrive/Workspace/algo3/include",
+                    "c:/Users/s9805/OneDrive/Workspace/algo3/src/crc",
+                    "c:/Users/s9805/OneDrive/Workspace/algo3/src/mutex",
+                    "c:/Users/s9805/OneDrive/Workspace/algo3/src/thread",
+                    "c:/Users/s9805/OneDrive/Workspace/algo3/src/utility",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
+        },
+        {
+            "name": "Linux",
+            "includePath": [
+                "/home/stevechang/Workspace/algo3/**",
+                "/home/stevechang/Workspace/algo3/include",
+                "/home/stevechang/Workspace/algo3/src/crc",
+                "/home/stevechang/Workspace/algo3/src/mutex",
+                "/home/stevechang/Workspace/algo3/src/thread",
+                "/home/stevechang/Workspace/algo3/src/utility",
+                "/usr/include/x86_64-linux-gnu"
+            ],
+            "defines": [
+                "_DEBUG",
+                "UNICODE",
+                "_UNICODE",
+                "linux"
+            ],
+            "cStandard": "c11",
+            "cppStandard": "gnu++14",
+            "intelliSenseMode": "linux-gcc-x64",
+            "macFrameworkPath": [],
+            "mergeConfigurations": false,
+            "compilerPath": "/usr/bin/gcc",
+            "browse": {
+                "path": [
+                    "/home/stevechang/Workspace/algo3/**",
+                    "/home/stevechang/Workspace/algo3/include",
+                    "/home/stevechang/Workspace/algo3/src/crc",
+                    "/home/stevechang/Workspace/algo3/src/mutex",
+                    "/home/stevechang/Workspace/algo3/src/thread",
+                    "/home/stevechang/Workspace/algo3/src/utility",
+                    "${workspaceFolder}"
+                ],
+                "limitSymbolsToIncludedHeaders": true
+            }
         }
     ],
     "version": 4

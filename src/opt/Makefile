@@ -1,10 +1,10 @@
 # Project: algo3
 # Makefile created by Steve Chang
-# Date modified: 2024.02.25
+# Date modified: 2024.04.07
 
-LIBNAME = libmutex.a
+LIBNAME = libopt.a
 
-DIR = mutex
+DIR = src
 
 SUBDIR =
 

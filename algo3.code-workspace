@@ -11,7 +11,14 @@
             "thread.h": "c",
             "main.h": "c",
             "checksum.h": "c",
-            "utility.h": "c"
+            "utility.h": "c",
+            "crc8.h": "c",
+            "opt.h": "c",
+            "*.out": "c",
+            "crc_app.h": "c",
+            "crc_model.h": "c",
+            "unistd.h": "c",
+            "time.h": "c"
         }
     }
 }

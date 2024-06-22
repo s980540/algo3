@@ -21,13 +21,13 @@
 // #endif
 
 typedef struct _swlist_t {
-    u16 head;
-    u16 tail;
-    u16 cnt;
+	u16 head;
+	u16 tail;
+	u16 cnt;
 } swlist_t;
 
 typedef struct list_head {
-    struct list_head *next, *prev;
+	struct list_head *next, *prev;
 } list_t;
 
 #define LIST_HEAD_INIT(name)    {&(name), &(name)}
@@ -37,70 +37,70 @@ typedef struct list_head {
 
 static inline void INIT_LIST_HEAD(struct list_head *list)
 {
-    list->next = list;
-    list->prev = list;
+	list->next = list;
+	list->prev = list;
 }
 
 static inline void __list_add(
-            struct list_head *new,
-            struct list_head *prev,
-            struct list_head *next)
+        struct list_head *new,
+        struct list_head *prev,
+        struct list_head *next)
 {
-    prev->next = new;
-    new->prev = prev;
-    new->next = next;
-    next->prev = new;
+	prev->next = new;
+	new->prev = prev;
+	new->next = next;
+	next->prev = new;
 }
 
 // stack
 static inline void list_add(
-            struct list_head *new,
-            struct list_head *head)
+        struct list_head *new,
+        struct list_head *head)
 {
-    __list_add(new, head, head->next);
+	__list_add(new, head, head->next);
 }
 
 // queue
 static inline void list_add_tail(
-            struct list_head *new,
-            struct list_head *head
+        struct list_head *new,
+        struct list_head *head
 )
 {
-    __list_add(new, head->prev, head);
+	__list_add(new, head->prev, head);
 }
 
 static inline void __list_del(
-            struct list_head *prev,
-            struct list_head *next
+        struct list_head *prev,
+        struct list_head *next
 )
 {
-    prev->next = next;
-    next->prev = prev;
+	prev->next = next;
+	next->prev = prev;
 }
 
 static inline void list_del(struct list_head *ptr)
 {
-    __list_del(ptr->prev, ptr->next);
-    ptr->next = NULL;
-    ptr->prev = NULL;
+	__list_del(ptr->prev, ptr->next);
+	ptr->next = NULL;
+	ptr->prev = NULL;
 }
 
 static inline int list_is_last(
-            const struct list_head *list,
-            const struct list_head *head
+        const struct list_head *list,
+        const struct list_head *head
 )
 {
-    return list->next == head;
+	return list->next == head;
 }
 
 static inline int list_is_empty(const struct list_head *head)
 {
-    return head->next == head;
+	return head->next == head;
 }
 
 static inline int list_is_singular(const struct list_head *head)
 {
-    return !list_is_empty(head) && (head->next == head->prev);
+	return !list_is_empty(head) && (head->next == head->prev);
 }
 
 #define _offsetof(type, member) ((size_t)&((type *)0)->member)

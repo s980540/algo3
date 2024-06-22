@@ -3,17 +3,21 @@
 # Date modified: 2024.02.25
 
 OBJS = $(addprefix $(OBJDIR)/,$(SRCS:.c=.o))
+ASMS = $(addprefix $(ASMDIR)/,$(SRCS:.c=.s))
 DEPS = $(addprefix $(OBJDIR)/,$(SRCS:.c=.c.d))
 
 # C_INCDIRS = $(foreach dir,$(MODULE_INCLUDES),$(PROJDIR)/$(dir))
 
 CFLAGS = \
+	$(OSFLAG) \
 	$(addprefix -I,$(COMMON_INCLUDE)) \
 	$(addprefix -I,$(EXTERN_INCLUDE)) \
 	$(foreach include, . $(INCLUDE), -I$(SRCDIR)/$(include)) \
 	-g -O2 -Wall
+# -g -Os -Wall
+# -g -Wall
 
-DEFINES +=-DNVME_MI_DEBUG_TRACE
+DEFINES +=
 
 # # Extra flags to give to compilers when they are supposed to invoke the linker,
 # # ‘ld’, such as -L. Libraries (-lfoo) should be added to the LDLIBS variable
@@ -37,7 +41,7 @@ ARFLAGS = \
 .PHONY: all
 all: $(LIBDIR)/$(LIBNAME)
 
-$(LIBDIR)/$(LIBNAME): $(OBJS)
+$(LIBDIR)/$(LIBNAME): $(ASMS) $(OBJS)
 	$(AR) $(ARFLAGS) $@ $(OBJS)
 
 ###
@@ -52,10 +56,22 @@ objall: $(OBJS)
 
 $(OBJS): | $(OBJDIR)
 
-$(OBJDIR)/%.o : %.c
+$(OBJDIR)/%.o : $(ASMDIR)/%.s
 	$(CC) $(DEFINES) $(CFLAGS) -c $< -o $@
 
 $(OBJDIR):
+	mkdir $@
+
+###
+.PHONY: asmall
+asmall: $(ASMS)
+
+$(ASMS): | $(ASMDIR)
+
+$(ASMDIR)/%.s : %.c
+	$(CC) $(DEFINES) $(CFLAGS) -c $< -S -o $@
+
+$(ASMDIR):
 	mkdir $@
 
 ###
@@ -68,10 +84,15 @@ depall: | $(OBJDIR)
 .PHONY: clean
 clean:
 	rm -rf $(OBJDIR)
+	rm -rf $(ASMDIR)
 
 .PHONY: objclean
 objclean:
 	rm -f $(OBJDIR)/*.o
+
+.PHONY: asmclean
+asmclean:
+	rm -f $(ASMDIR)/*.s
 
 .PHONY: depclean
 depclean:
