@@ -30,12 +30,11 @@ void nvme_mi_test_checksum(void)
 
 	sum = 0;
 	sum = checksum8_append(sum, string, strlen(string));
-	printf("sum: 0x%02x, %ld\n", sum, strlen(string));
+	printf("sum: 0x%02x, %d\n", sum, (u32)strlen(string));
 
 	chksum = 0;
 	chksum = checksum8(chksum, string, strlen(string));
-	printf("checksum: 0x%02x, %ld\n", chksum, strlen(string));
-
+	printf("checksum: 0x%02x, %d\n", chksum, (u32)strlen(string));
 	chksum += sum;
 	printf("Checksum verify %s.\n", chksum ? "failed" : "passed");
 
@@ -47,9 +46,5 @@ void nvme_mi_test_checksum(void)
 	print_buf((char *)&mname, sizeof(mname), NULL);
 	reverse((char *)&mname, sizeof(mname));
 	print_buf((char *)&mname, sizeof(mname), NULL);
-#ifdef AMD64
-	printf("%llx %llx\n", (u64)&mname, (u64)mname.ieee);
-#else
-	printf("%x %x\n", (u32)&mname, (u32)mname.ieee);
-#endif
+	printf("%p %p\n", &mname, mname.ieee);
 }

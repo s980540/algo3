@@ -61,11 +61,6 @@ unsigned long get_num(const char *str)
 void print_buf(const void *buf, size_t size, char *title)
 {
 	u32 i, j, p;
-#ifdef AMD64
-	u64 addr = (u64)buf;
-#else
-	u32 addr = (u32)buf;
-#endif
 
 	if (title) {
 		printf("%s\n", title);
@@ -76,11 +71,7 @@ void print_buf(const void *buf, size_t size, char *title)
 		return;
 	}
 
-#ifdef AMD64
-	printf("0x%0llX: ", addr);
-#else
-	printf("0x%08X: ", addr);
-#endif
+	printf("0x%p: ", buf);
 
 	for (i = 0; i < size; i++) {
 		if (i && (i % 16 == 0)) {
@@ -92,11 +83,7 @@ void print_buf(const void *buf, size_t size, char *title)
 					printf("%c", ((char *)buf)[j]);
 				}
 			}
-		#ifdef AMD64
-			printf("\n0x%0llX: ", addr + i);
-		#else
-			printf("\n0x%08X: ", addr + i);
-		#endif
+			printf("\n0x%p: ", buf);
 			p = 1;
 		} else if (i && (i % 8 == 0)) {
 			printf(" ");
