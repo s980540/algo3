@@ -6,6 +6,8 @@
 #include "crc_app.h"
 #include "crc32.h"
 
+#include "utility.h"
+
 #include <time.h>
 #include <stdint.h>
 
@@ -112,15 +114,13 @@ static void str2hex(void *h, const void *s, size_t len)
 
 extern int crc_table_main(void);
 
-union pause_cpsr_field
-{
-    struct
-    {
-        word pfss0 : 1;
-        word pfss1 : 1;
-        word rsvd : 14;
-    };
-    word value;
+union pause_cpsr_field {
+	struct {
+		word pfss0 : 1;
+		word pfss1 : 1;
+		word rsvd : 14;
+	};
+	word value;
 };
 
 #define likely(x)                       __builtin_expect(!!(x), 1)
@@ -133,23 +133,17 @@ void test1(void)
 
 	count = UINT32_MAX >> 1;
 	start = clock();
-	while (1)
-	{
-		if (count == 0)
-		{
+	while (1) {
+		if (count == 0) {
 			break;
-		}
-		else if (count % 10 == 0)
-		{
+		} else if (count % 10 == 0) {
 			count--;
-		}
-		else
-		{
+		} else {
 			count--;
 		}
 	}
 	end = clock();
-	printf("time = (%ld,%ld,%lf)\n", start, end, (double)(end - start)/(double)CLOCKS_PER_SEC);
+	printf("time = (%ld,%ld,%lf)\n", start, end, (double)(end - start) / (double)CLOCKS_PER_SEC);
 }
 
 void test2(void)
@@ -159,23 +153,17 @@ void test2(void)
 
 	count = UINT32_MAX >> 1;
 	start = clock();
-	while (1)
-	{
-		if (unlikely(count == 0))
-		{
+	while (1) {
+		if (unlikely(count == 0)) {
 			break;
-		}
-		else if (count % 10 == 0)
-		{
+		} else if (count % 10 == 0) {
 			count--;
-		}
-		else
-		{
+		} else {
 			count--;
 		}
 	}
 	end = clock();
-	printf("time = (%ld,%ld,%lf)\n", start, end, (double)(end - start)/(double)CLOCKS_PER_SEC);
+	printf("time = (%ld,%ld,%lf)\n", start, end, (double)(end - start) / (double)CLOCKS_PER_SEC);
 }
 
 void test3(void)
@@ -185,48 +173,71 @@ void test3(void)
 
 	count = UINT32_MAX >> 1;
 	start = clock();
-	while (1)
-	{
-		if (likely(count == 0))
-		{
+	while (1) {
+		if (likely(count == 0)) {
 			break;
-		}
-		else if (count % 10 == 0)
-		{
+		} else if (count % 10 == 0) {
 			count--;
-		}
-		else
-		{
+		} else {
 			count--;
 		}
 	}
 	end = clock();
-	printf("time = (%ld,%ld,%lf)\n", start, end, (double)(end - start)/(double)CLOCKS_PER_SEC);
+	printf("time = (%ld,%ld,%lf)\n", start, end, (double)(end - start) / (double)CLOCKS_PER_SEC);
+}
+
+union u {
+	struct {
+		u32 b0 : 1;
+		u32 b1 : 1;
+		u32 b2 : 1;
+		u32 b3 : 1;
+		u32 b4 : 1;
+		u32 b5 : 1;
+		u32 b6 : 1;
+		u32 b7 : 1;
+		u32 b8 : 8;
+		u32 b16 : 16;
+		u32 b24: 8;
+	};
+
+	u32 value;
+};
+
+u32 test_compiler_optimize1(void)
+{
+	union u uu = {.value = rand()};
+	return uu.b8;
+}
+
+u32 test_compiler_optimize2(void)
+{
+	u32 value;
+#if 0
+	value
+	        = (1 << 31) | (1 << 30) | (1 << 29) | (1 << 28)
+	          | (1 << 27) | (1 << 26) | (1 << 25) | (1 << 24)
+	          | (1 << 23) | (1 << 22) | (1 << 21) | (1 << 20)
+	          | (1 << 19) | (1 << 18) | (1 << 17) | (1 << 16)
+	          | (1 << 15) | (1 << 14) | (1 << 13) | (1 << 12)
+	          | (1 << 11) | (1 << 10) | (1 <<  9) | (1 <<  8)
+	          | (1 <<  7) | (1 <<  6) | (1 <<  5) | (1 <<  4)
+	          | (1 <<  3) | (1 <<  2) | (1 <<  1) | (1 <<  0);
+#else
+	value = rand();
+#endif
+	return (value >> 8) & 0xff;
 }
 
 int main(int argc, char *argv[])
 {
-	#if 1
+#if 1
 	int ret = 0;
 
-	#ifdef WIN32
-	printf("WIN32\n");
-	#endif
-	#ifdef LINUX
-	printf("LINUX\n");
-	#endif
-	#ifdef OSX
-	printf("OSX\n");
-	#endif
-	#ifdef IA32
-	printf("IA32\n");
-	#endif
-	#ifdef AMD64
-	printf("AMD64\n");
-	#endif
-	#ifdef ARM
-	printf("ARM\n");
-	#endif
+	print_platform_info();
+
+	printf("value = %x\n", test_compiler_optimize1());
+	printf("value = %x\n", test_compiler_optimize2());
 
 	//
 	nvme_mi_test_checksum();
@@ -336,7 +347,7 @@ int main(int argc, char *argv[])
 	printf("\n");
 
 	half_byte_table_generator();
-	#endif
+#endif
 
 	// test1();
 	// test3();
@@ -345,11 +356,26 @@ int main(int argc, char *argv[])
 	//
 	ret = generate_random_binfile(argc, argv);
 	if (ret) {
-	    printf("generate_random_binfile failed (%d)\n", ret);
+		printf("generate_random_binfile failed (%d)\n", ret);
 	}
 
 	// //
 	// thread_test(argc, argv);
+
+	buf = malloc(512);
+	for (int i = 0; i < 512; i++) {
+		*(u8 *)(buf + i) = 'a' + i;
+	}
+	print_buf(buf, 1, "");
+	print_buf(buf, 8, "");
+	print_buf(buf, 9, "");
+	print_buf(buf, 16, "");
+	print_buf(buf, 17, "");
+	print_buf(buf, 32, "");
+	print_buf(buf, 33, "");
+	print_buf(buf, 256, "");
+	print_buf(buf, 512, "");
+	free(buf);
 
 	return ret;
 }

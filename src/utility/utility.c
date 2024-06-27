@@ -1,6 +1,31 @@
 #include "utility.h"
 
+#include <stdio.h>
+#include <stdlib.h>
+#include <stdarg.h>
 #include <limits.h>
+
+void print_platform_info(void)
+{
+#ifdef WIN32
+	printf("WIN32\n");
+#endif
+#ifdef LINUX
+	printf("LINUX\n");
+#endif
+#ifdef OSX
+	printf("OSX\n");
+#endif
+#ifdef AMD64
+	printf("AMD64\n");
+#endif
+#ifdef IA32
+	printf("IA32\n");
+#endif
+#ifdef ARM
+	printf("ARM\n");
+#endif
+}
 
 #ifdef WIN32
 void *aligned_alloc(size_t size, u32 align)
@@ -58,59 +83,112 @@ unsigned long get_num(const char *str)
 	return val;
 }
 
-void print_buf(const void *buf, size_t size, char *title)
+/**
+ * @brief This function print_buf is designed to print the contents of a buffer
+ * in a formatted hexadecimal and ASCII representation. The output includes the
+ * buffer address, hexadecimal values, and corresponding ASCII characters, with
+ * unprintable characters shown as dots (.). The function ensures the output
+ * format is consistent, even when the buffer length is not a multiple of 16
+ * bytes.
+ *
+ * @param buf Pointer to the buffer to be printed.
+ * @param len Length of the buffer in bytes.
+ * @param title Optional title to print before the buffer contents. This can be
+ * a formatted string followed by variadic arguments.
+ */
+void print_buf(const void *buf, size_t len, const char *title, ...)
 {
 	u32 i, j, p;
 
+	// If a title is provided, use variadic arguments to print the title
 	if (title) {
-		printf("%s\n", title);
+		va_list argp;
+		va_start(argp, title);
+		vfprintf(stderr, title, argp);
+		va_end(argp);
+		fputc('\n', stderr);
 	}
 
-	if (size == 0) {
-		printf("[%s][%d] SIZE is zero.\n\n", __FUNCTION__, __LINE__);
+	// If the buffer length is zero, print a message and return
+	if (len == 0) {
+		printf("len is zero.\n\n");
 		return;
 	}
 
+	// Print the starting address of the buffer
 	printf("0x%p: ", buf);
 
-	for (i = 0; i < size; i++) {
-		if (i && (i % 16 == 0)) {
-			printf("   ");
-			for (j = i - 16; j < i; j++) {
-				if (((u8 *)buf)[j] < 0x20 || ((u8 *)buf)[j] > 0x7E) {
-					printf(".");
-				} else {
-					printf("%c", ((char *)buf)[j]);
+	// Traverse each byte of the buffer
+	for (i = 0; i < len; i++) {
+		// Format control when it's not the first byte
+		if (i) {
+			// Every 16 bytes, break the line and print the character format
+			if (i % 16 == 0) {
+				printf("   ");
+				for (j = i - 16; j < i; j++) {
+					if (((u8 *)buf)[j] < 0x20 || ((u8 *)buf)[j] > 0x7E) {
+						printf(".");
+					} else {
+						printf("%c", ((char *)buf)[j]);
+					}
 				}
+				printf("\n0x%p: ", (u8 *)buf + i);
+				p = 1;
+			} else if (i % 8 == 0) {  // Add a space every 8 bytes
+				printf(" ");
 			}
-			printf("\n0x%p: ", buf);
-			p = 1;
-		} else if (i && (i % 8 == 0)) {
-			printf(" ");
 		}
 
+		// Print the current byte in hexadecimal format
 		printf("%02X ", ((u8 *)buf)[i]);
 		p = 0;
 	}
 
+	// If the last line is less than 16 bytes, pad the format
 	if (!p) {
+		// If the current byte count is not a multiple of 16, pad the format
 		if (i % 16) {
+			// From the current position to the next 16-byte boundary
 			for (j = i; j < i + 16 - (i & 0xF); j++) {
+				// Insert an extra space every 8 bytes to keep the format neat
 				if (j % 8 == 0) {
 					printf(" ");
 				}
-
+				// Pad spaces to align the hexadecimal numbers
 				printf("   ");
 			}
 		}
 
+		// Insert spaces between the hexadecimal numbers and ASCII characters
 		printf("   ");
 
+		// Print the ASCII characters of the current line
+		// From the start of the current line to the current byte position
 		for (j = i - ((i % 16) ? i % 16 : 16); j < i; j++) {
+			/**
+			 * If the character is not a printable ASCII character (range 0x20
+			 * to 0x7E), use '.' instead
+			 */
 			if (((u8 *)buf)[j] < 0x20 || ((u8 *)buf)[j] > 0x7E) {
 				printf(".");
 			} else {
+				// Otherwise, print the corresponding character
 				printf("%c", ((char *)buf)[j]);
+			}
+		}
+
+		/**
+		 * If the current byte count is not a multiple of 16, pad the ASCII
+		 * characters
+		 */
+		if (i % 16) {
+			/**
+			 * From the current position to the next 16-byte boundary, pad the
+			 * characters
+			 */
+			for (j = i; j < i + 16 - (i % 16); j++) {
+				// Use '.' to pad the characters to align the ASCII characters
+				printf(".");
 			}
 		}
 	}

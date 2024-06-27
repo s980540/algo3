@@ -25,17 +25,17 @@ void *main_thread0(void *para)
 	request.tv_sec = 0;
 	request.tv_nsec = m_thread_info.sleep_nsec;
 
-	#ifdef WIN32
+#ifdef WIN32
 	printf("p:%x, id:%d, sleep:%d\n",
 	       (unsigned int)m_thread_info.thread.p,
 	       m_thread_info.thread_id,
 	       (int)m_thread_info.sleep_nsec);
-	#elif LINUX
+#elif LINUX
 	printf("p:%x, id:%d, sleep:%d\n",
 	       (unsigned int)m_thread_info.thread,
 	       m_thread_info.thread_id,
 	       (int)m_thread_info.sleep_nsec);
-	#endif
+#endif
 
 	while (1) {
 		main_thread0_unit_test();

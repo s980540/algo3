@@ -90,8 +90,7 @@ static u32 crc_table_le8[256] = {
 	0xbe2da0a5, 0x4c4623a6, 0x5f16d052, 0xad7d5351
 };
 
-static u32 crc_table_le4[16] =
-{
+static u32 crc_table_le4[16] = {
 	0x00000000, 0x105ec76f, 0x20bd8ede, 0x30e349b1,
 	0x417b1dbc, 0x5125dad3, 0x61c69362, 0x7198540d,
 	0x82f63b78, 0x92a8fc17, 0xa24bb5a6, 0xb21572c9,

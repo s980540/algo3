@@ -23,17 +23,17 @@ void *main_thread2(void *para)
 	m_thread_info.thread_id = ((thread_info_t *)para)->thread_id;
 	m_thread_info.sleep_nsec = ((thread_info_t *)para)->sleep_nsec;
 
-	#ifdef WIN32
+#ifdef WIN32
 	printf("p:%x, id:%d, sleep:%d\n",
 	       (unsigned int)m_thread_info.thread.p,
 	       m_thread_info.thread_id,
 	       (int)m_thread_info.sleep_nsec);
-	#elif LINUX
+#elif LINUX
 	printf("p:%x, id:%d, sleep:%d\n",
 	       (unsigned int)m_thread_info.thread,
 	       m_thread_info.thread_id,
 	       (int)m_thread_info.sleep_nsec);
-	#endif
+#endif
 
 	request.tv_sec = 0;
 	request.tv_nsec = m_thread_info.sleep_nsec;

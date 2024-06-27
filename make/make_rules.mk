@@ -13,7 +13,7 @@ CFLAGS = \
 	$(addprefix -I,$(COMMON_INCLUDE)) \
 	$(addprefix -I,$(EXTERN_INCLUDE)) \
 	$(foreach include, . $(INCLUDE), -I$(SRCDIR)/$(include)) \
-	-g -O2 -Wall
+	-g -O2 -Wall -Werror
 # -g -Os -Wall
 # -g -Wall
 

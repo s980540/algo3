@@ -18,7 +18,9 @@
             "crc_app.h": "c",
             "crc_model.h": "c",
             "unistd.h": "c",
-            "time.h": "c"
+            "time.h": "c",
+            "stdint.h": "c",
+            "stdint-gcc.h": "c"
         }
     }
 }
